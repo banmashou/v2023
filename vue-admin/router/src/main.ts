@@ -1,5 +1,14 @@
 import { createApp } from 'vue'
-import './style.css'
 import App from './App.vue'
 
-createApp(App).mount('#app')
+import router, { setupRouter } from './router'
+
+async function bootstrap() {
+  const app = createApp(App)
+  setupRouter(app)
+  // 路由处理完之后再挂载页面
+  await router.isReady()
+  app.mount('#app')
+}
+
+bootstrap()
