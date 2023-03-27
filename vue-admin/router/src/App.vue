@@ -1,5 +1,6 @@
-<script setup lang="ts"></script>
-
+<script setup lang="ts">
+console.log(import.meta.env.VITE_SOME_KEY)
+</script>
 <template>
   <ul>
     <li>首页</li>
