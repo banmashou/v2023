@@ -1,8 +1,6 @@
-<script setup lang="ts">
-console.log(import.meta.env.VITE_SOME_KEY)
-</script>
+<script setup lang="ts"></script>
 <template>
-  <ul>
+  <ul class="bg-red-500">
     <li>首页</li>
     <li>商品</li>
     <li>评价</li>
