@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { env } from './types/helper'
+import { onMounted } from 'vue'
 
-console.log(typeof env.VITE_SOME_KEY)
-console.log(typeof import.meta.env.VITE_SOME_KEY)
+onMounted(async () => {
+  const res = await fetch(`http://localhost:5173/api/get`).then((r) => r.json())
+  console.log(res)
+})
 </script>
 
 <template>
