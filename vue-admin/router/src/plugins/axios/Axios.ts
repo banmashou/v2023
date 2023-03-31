@@ -1,6 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { reject } from 'lodash'
 
-class Axios {
+export default class Axios {
   // 定义一个私有的静态属性，用来保存实例
   private instance
   // 定义一个私有的构造函数，用来创建实例
@@ -10,6 +11,18 @@ class Axios {
     // 拦截器
     this.interceptors()
   }
+
+  public async request<T, D = ResponseResult<T>>(config: AxiosRequestConfig) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const response = await this.instance.request<D>(config)
+        resolve(response.data)
+      } catch (error) {
+        reject(error)
+      }
+    }) as Promise<D>
+  }
+
   // 公有的静态方法，用来获取实例
   private interceptors() {
     this.interceptorsRequest()
