@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router'
+import { env } from '@/utils/helper'
 
 // 获取 layouts 文件夹下所有 .vue 文件
 // import.meta.globEager 已经弃用
@@ -48,5 +49,6 @@ function getRouteByModule(file: string, module: { [key: string]: any }) {
 
   return Object.assign(route, module.default?.route)
 }
-
-export default getRoutes()
+// 如果开启了自动加载路由，则调用getRoutes()获取路由，否则返回空数组
+const routes = env.VITE_ROUTER_AUTOLOAD ? getRoutes() : ([] as RouteRecordRaw[])
+export default routes

@@ -4,8 +4,9 @@
 
 <style lang="scss"></style>
 
-<script>
+<!-- <script>
+// 自定义路由
 export default {
-  route: { path: '/user' },
+  route: { path: '/user:id' },
 }
-</script>
+</script> -->

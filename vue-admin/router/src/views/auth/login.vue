@@ -1,7 +1,10 @@
 <script setup lang="ts">
-import bmInput from '@/components/form/bm-input.vue'
-import bmButton from '@/components/form/bm-button.vue'
-import bmLink from '@/components/form/bm-link.vue'
+import { reactive } from 'vue'
+
+const form = reactive<{ account: string; password: string | number }>({
+  account: '',
+  password: '',
+})
 </script>
 
 <template>
@@ -10,9 +13,8 @@ import bmLink from '@/components/form/bm-link.vue'
       <div class="p-6">
         <h2 class="text-center text-gray-700 text-lg mt-3">会员登录</h2>
         <div class="mt-8">
-          <bmInput />
-          <bmInput class="mt-5" />
-          <!-- <input type="text" placeholder="请输入手机号或邮箱" class="bm-input mt-3" /> -->
+          <bmInput v-model="form.account" placeholder="请输入邮箱或手机号" />
+          <bmInput v-model="form.password" class="mt-5" placeholder="请输入登录密码" />
         </div>
         <bmButton />
         <div class="flex gap-2 justify-center mt-5">
