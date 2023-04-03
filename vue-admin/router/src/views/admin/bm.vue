@@ -20,7 +20,7 @@ const onSubmit = (values) => {
   </Form>
 </template>
 
-<style lang="scss">
+<style lang="scss" scoped>
 div {
   @apply flex w-screen h-screen justify-center items-center bg-gray-800;
   input {
