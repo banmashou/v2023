@@ -1,5 +1,5 @@
 <script setup lang="ts"></script>
 
-<template>order.vue</template>
+<template>home.vue</template>
 
 <style scoped></style>

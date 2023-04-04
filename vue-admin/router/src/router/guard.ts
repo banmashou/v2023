@@ -8,7 +8,14 @@ class Guard {
 		this.router.beforeEach((to, from) => {
 			const token = store.get('token')?.token
 			if (this.isLogin(to, token) === false) return { name: 'login' }
+
+			if (this.isGuest(to, token) === false) return from
 		})
+	}
+
+	// 游客
+	private isGuest(route: RouteLocationNormalized, token: any) {
+		return Boolean(!route.meta.guest || (route.meta.guest && !token))
 	}
 
 	private isLogin(route: RouteLocationNormalized, token: any) {

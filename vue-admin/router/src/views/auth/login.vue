@@ -26,12 +26,12 @@ const onSubmit = async (values: any) => {
   const {
     result: { token },
   } = await userApi.login(values)
-  store.set('token', { expire: 5, token })
+  store.set('token', { expire: 100000, token })
   router.push({ name: 'home' })
 }
 </script>
 <script lang="ts">
-export default { route: { name: 'login' } }
+export default { route: { name: 'login', meta: { guest: true } } }
 </script>
 
 <template>

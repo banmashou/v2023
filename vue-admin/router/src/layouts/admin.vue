@@ -1,14 +1,18 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import MenuCompoent from './admin/menu.vue'
+</script>
 
 <template>
-	<router-view />
+  <div class="admin h-screen w-screen flex">
+    <MenuCompoent />
+    <div class="content flex-1 bg-gray-200">
+      <router-view />
+    </div>
+  </div>
 </template>
-
-<style lang="scss" scoped>
-</style>
 
 <script lang="ts">
 export default {
-	route: { meta: { auth: true } },
-};
+  route: { meta: { auth: true } },
+}
 </script>
