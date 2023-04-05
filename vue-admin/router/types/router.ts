@@ -4,7 +4,9 @@ import 'vue-router'
 // router元信息
 declare module 'vue-router' {
 	interface RouteMeta {
+		// 是否是登录用户
 		auth?: boolean,
+		// 是否是游客
 		guest?: boolean,
 		// 路由是否在菜单中显示
 		show?: boolean,
@@ -15,6 +17,6 @@ declare module 'vue-router' {
 		// 是否在菜单中被点击
 		isClick?: boolean,
 		// 权限
-		permission: string[],
+		permission?: string[],
 	}
 }
