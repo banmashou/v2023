@@ -1,45 +1,10 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
-
 import { router } from '@/store/router'
+import { useRouter } from 'vue-router'
 import { RouteRecordNormalized } from 'vue-router'
 import { RouteRecordRaw } from 'vue-router'
 
-// interface IMenuItem {
-//   title: string
-//   icon?: string
-//   active?: boolean
-// }
-
-// interface IMenu extends IMenuItem {
-//   children?: IMenuItem[]
-// }
-
-// const menus = reactive<IMenu[]>([
-//   {
-//     title: '错误页面',
-//     icon: 'fab fa-bimobject',
-//     active: true,
-//     children: [{ title: '404页面', active: true }, { title: '403页面' }, { title: '500页面' }],
-//   },
-//   {
-//     title: '编译器',
-//     icon: 'fab fa-app-store-ios',
-//     children: [{ title: 'markdown编译器' }, { title: '富文本编译器' }],
-//   },
-//   {
-//     title: '错误页面',
-//     icon: 'fab fa-bimobject',
-//     active: true,
-//     children: [{ title: '404页面', active: true }, { title: '403页面' }, { title: '500页面' }],
-//   },
-//   {
-//     title: '编译器',
-//     icon: 'fab fa-app-store-ios',
-//     children: [{ title: 'markdown编译器' }, { title: '富文本编译器' }],
-//   },
-// ] as IMenu[])
-
+const routeService = useRouter()
 const routerStore = router()
 
 const reset = () => {
@@ -58,6 +23,7 @@ const handle = (pRoute: RouteRecordNormalized, cRoute?: RouteRecordRaw) => {
   pRoute.meta.isClick = true
   if (cRoute && cRoute.meta) {
     cRoute.meta.isClick = true
+    routeService.push(cRoute)
   }
 }
 </script>
