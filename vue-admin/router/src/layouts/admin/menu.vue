@@ -1,40 +1,64 @@
 <script setup lang="ts">
 import { reactive } from 'vue'
 
-interface IMenuItem {
-  title: string
-  icon?: string
-  active?: boolean
-}
+import { router } from '@/store/router'
+import { RouteRecordNormalized } from 'vue-router'
+import { RouteRecordRaw } from 'vue-router'
 
-interface IMenu extends IMenuItem {
-  children?: IMenuItem[]
-}
+// interface IMenuItem {
+//   title: string
+//   icon?: string
+//   active?: boolean
+// }
 
-const menus = reactive<IMenu[]>([
-  {
-    title: '错误页面',
-    icon: 'fab fa-bimobject',
-    active: true,
-    children: [{ title: '404页面', active: true }, { title: '403页面' }, { title: '500页面' }],
-  },
-  {
-    title: '编译器',
-    icon: 'fab fa-app-store-ios',
-    children: [{ title: 'markdown编译器' }, { title: '富文本编译器' }],
-  },
-] as IMenu[])
+// interface IMenu extends IMenuItem {
+//   children?: IMenuItem[]
+// }
 
-const resetMenus = () => {
-  menus.forEach((pmenu) => {
-    pmenu.active = false
-    pmenu.children?.forEach((m) => (m.active = false))
+// const menus = reactive<IMenu[]>([
+//   {
+//     title: '错误页面',
+//     icon: 'fab fa-bimobject',
+//     active: true,
+//     children: [{ title: '404页面', active: true }, { title: '403页面' }, { title: '500页面' }],
+//   },
+//   {
+//     title: '编译器',
+//     icon: 'fab fa-app-store-ios',
+//     children: [{ title: 'markdown编译器' }, { title: '富文本编译器' }],
+//   },
+//   {
+//     title: '错误页面',
+//     icon: 'fab fa-bimobject',
+//     active: true,
+//     children: [{ title: '404页面', active: true }, { title: '403页面' }, { title: '500页面' }],
+//   },
+//   {
+//     title: '编译器',
+//     icon: 'fab fa-app-store-ios',
+//     children: [{ title: 'markdown编译器' }, { title: '富文本编译器' }],
+//   },
+// ] as IMenu[])
+
+const routerStore = router()
+
+const reset = () => {
+  routerStore.routes.forEach((route) => {
+    route.meta.isClick = false
+    route.children?.forEach((route) => {
+      if (route.meta) {
+        route.meta.isClick = false
+      }
+    })
   })
 }
 
-const handle = (pmenu: IMenuItem, cmenu?: IMenuItem) => {
-  resetMenus()
-  pmenu.active = true
+const handle = (pRoute: RouteRecordNormalized, cRoute?: RouteRecordRaw) => {
+  reset()
+  pRoute.meta.isClick = true
+  if (cRoute && cRoute.meta) {
+    cRoute.meta.isClick = true
+  }
 }
 </script>
 
@@ -46,17 +70,24 @@ const handle = (pmenu: IMenuItem, cmenu?: IMenuItem) => {
     </div>
     <!-- 菜单 -->
     <div class="left-container">
-      <dl v-for="(menu, index) of menus" :key="index">
-        <dt @click="handle(menu)">
+      <dl v-for="(route, index) of routerStore.routes" :key="index">
+        <dt @click="handle(route)">
           <section>
-            <i :class="menu.icon"></i>
-            <span class="text-md">{{ menu.title }}</span>
+            <i :class="route.meta.icon"></i>
+            <span class="text-md">{{ route.meta.title }}</span>
           </section>
           <section>
-            <i class="fas fa-angle-down"></i>
+            <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': route.meta.isClick }"></i>
           </section>
         </dt>
-        <dd v-show="menu.active" :class="{ active: cmenu.active }" v-for="(cmenu, key) of menu.children" :key="key">{{ cmenu.title }}</dd>
+        <dd
+          v-show="route.meta.isClick"
+          :class="{ active: childRoute.meta?.isClick }"
+          v-for="(childRoute, key) of route.children"
+          :key="key"
+          @click="handle(route, childRoute)">
+          {{ childRoute.meta?.title }}
+        </dd>
       </dl>
     </div>
   </div>
@@ -77,7 +108,7 @@ const handle = (pmenu: IMenuItem, cmenu?: IMenuItem) => {
         }
       }
       dd {
-        @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer duration-300 hover:bg-violet-500;
+        @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer duration-300 hover:bg-violet-500 bg-gray-700;
 
         &.active {
           @apply bg-violet-700;

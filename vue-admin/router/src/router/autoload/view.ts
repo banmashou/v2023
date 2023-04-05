@@ -51,5 +51,5 @@ function getRouteByModule(file: string, module: { [key: string]: any }) {
 }
 // 如果开启了自动加载路由，则调用getRoutes()获取路由，否则返回空数组
 // console.log(typeof util.env.VITE_ROUTER_AUTOLOAD);
-const routes = env.VITE_ROUTER_AUTOLOAD ? getRoutes() : ([] as RouteRecordRaw[]);
-export default routes;
+// const routes = env.VITE_ROUTER_AUTOLOAD ? getRoutes() : ([] as RouteRecordRaw[]);
+export default getRoutes
