@@ -1,6 +1,7 @@
 // typings.d.ts or router.ts
 import 'vue-router'
 
+// router元信息
 declare module 'vue-router' {
 	interface RouteMeta {
 		auth?: boolean,
