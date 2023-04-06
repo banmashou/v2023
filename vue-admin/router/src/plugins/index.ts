@@ -1,3 +1,9 @@
+/**
+ * @deprecated 插件注册
+ * @author 斑马兽
+ * @export
+ * @param {App} app
+ */
 import { App } from 'vue'
 import { setupTailwindcss } from './tailwindcss'
 import _ from 'lodash'

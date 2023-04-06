@@ -1,3 +1,7 @@
+/**
+ * @description: admin路由配置
+ * @author: 斑马兽
+ */
 import { RouteRecordRaw } from 'vue-router';
 
 export default {

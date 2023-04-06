@@ -1,3 +1,7 @@
+/**
+ * @description: 编辑器路由
+ * @author: 斑马兽
+ */
 import { RouteRecordRaw } from "vue-router";
 
 export default {

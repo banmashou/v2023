@@ -1,3 +1,7 @@
+/**
+ * @description: 用户相关的工具函数
+ * @author: 斑马兽
+ */
 import { CacheEnum } from '@/enum/cacheEnum'
 import store from './store'
 import userApi, { ILoginData } from '@/apis/userApi'
@@ -10,7 +14,8 @@ export async function login(values: ILoginData) {
 		result: { token },
 	} = await userApi.login(values)
 	store.set(CacheEnum.TOKEN_NAME, { token }, 10000)
-	router.push({ name: 'home' })
+	const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
+	router.push({ name: routeName })
 }
 
 export function logout() {

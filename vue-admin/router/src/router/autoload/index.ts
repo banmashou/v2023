@@ -1,3 +1,7 @@
+/**
+ * @description: 自动加载路由
+ * @author: 斑马兽
+ */
 import util from "@/utils";
 import { RouteRecordRaw } from "vue-router";
 import getRoutes from "./view";

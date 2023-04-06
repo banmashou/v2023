@@ -1,5 +1,12 @@
+/**
+ * @description: 路由守卫
+ * @author: 斑马兽
+ * @param {Router} router
+ * @class Guard
+ */
 import { CacheEnum } from "@/enum/cacheEnum";
 import userStore from "@/store/userStore";
+import utils from "@/utils";
 import util from "@/utils";
 import { RouteLocationNormalized, Router } from "vue-router";
 
@@ -31,7 +38,11 @@ class Guard {
 
 	// 登录用户访问
 	private isLogin(route: RouteLocationNormalized) {
-		return Boolean(!route.meta.auth || (route.meta.auth && this.token()))
+		const state = Boolean(!route.meta.auth || (route.meta.auth && this.token()))
+		if (state === false) {
+			utils.store.set(CacheEnum.REDIRECT_ROUTE_NAME, route.name)
+		}
+		return state
 	}
 }
 

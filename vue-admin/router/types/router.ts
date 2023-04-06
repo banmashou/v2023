@@ -1,7 +1,10 @@
 // typings.d.ts or router.ts
 import 'vue-router'
 
-// router元信息
+/**
+ * @description 路由元信息
+ * @author 斑马兽
+ */
 declare module 'vue-router' {
 	interface RouteMeta {
 		// 是否是登录用户

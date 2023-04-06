@@ -1,3 +1,11 @@
+/**
+ * @description: 本地存储
+ * @author: 斑马兽
+ * @param {string} key
+ * @param {any} data
+ * @param {number} [expire]
+ * @return {*}
+ */
 export interface IData {
 	data: any;
 	expire?: number

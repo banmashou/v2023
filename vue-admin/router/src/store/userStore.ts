@@ -1,3 +1,9 @@
+
+/**
+ * @description: 获取用户信息
+ * @author: 斑马兽
+ * @defineStore user
+ */
 import { defineStore } from "pinia";
 import userApi, { User } from '@/apis/userApi'
 

@@ -1,5 +1,11 @@
+/**
+ * @description: 获取路由
+ * @author: 斑马兽
+ * @param {RouteRecordRaw[]} routes
+ * @return {*}
+ * @example: getRoutes()
+ */
 import { RouteRecordRaw } from "vue-router";
-import { env } from "@/utils";
 
 // 获取 layouts 文件夹下所有 .vue 文件
 // import.meta.globEager 已经弃用

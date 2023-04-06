@@ -1,3 +1,9 @@
+/**
+ * @constructor: 自动加载模块路由
+ * @author: 斑马兽
+ * @export
+ * @return {*} 
+ */
 import { RouteRecordRaw } from "vue-router";
 
 export default function autoloadModuleRoutes() {
