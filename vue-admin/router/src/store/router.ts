@@ -2,9 +2,11 @@ import { defineStore } from 'pinia'
 import { RouteRecordNormalized, useRouter } from 'vue-router'
 
 export const router = defineStore('router', {
-	state: () => ({
-		routes: getRoutes()
-	}),
+	state: () => {
+		return {
+			routes: getRoutes()
+		}
+	},
 	getters: {}
 })
 

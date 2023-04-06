@@ -1,4 +1,8 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import user from '@/store/user'
+
+const userStore = user()
+</script>
 
 <template>
   <div class="bg-white p-3 px-5 flex justify-between items-center">
@@ -8,9 +12,9 @@
     </el-breadcrumb>
 
     <div class="flex justify-center items-center relative group cursor-pointer">
-      <img src="/images/bm.jpg" class="w-8 h-8 rounded-full object-cover" />
-      <span class="ml-1 text-sm text-gray-600">斑马兽</span>
-      <section class="group-hover:block absolute top-full bg-white shadow-sm px-3 whitespace-nowrap border rounded-md hidden">
+      <img :src="userStore.info?.avatar" class="w-8 h-8 rounded-full object-cover" />
+      <span class="ml-1 text-sm text-gray-600">{{ userStore.info?.name }}</span>
+      <section class="group-hover:block absolute top-full bg-white shadow-sm px-4 whitespace-nowrap border rounded-md hidden">
         <div class="flex items-center cursor-pointer border-b py-3">
           <a class="fas fa-ad"></a>
           <span class="text-xs text-gray-600 ml-2">网站首页</span>

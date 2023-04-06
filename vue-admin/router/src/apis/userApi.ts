@@ -1,26 +1,40 @@
 import { http } from '@/plugins/axios'
 export interface User {
-  name: string
-  age: number
-  avatar: string
+	name: string
+	age: number
+	avatar: string
 }
 export interface LoginInterface {
-  token: string
+	token: string
 }
-class userApi {
-  info() {
-    return http.request<User>({
-      url: 'info',
-    })
-  }
 
-  login(data: any) {
-    return http.request<LoginInterface>({
-      url: 'login',
-      method: 'POST',
-      data,
-    })
-  }
+// function info() {
+// 	return http.request<User>({
+// 		url: 'user/info',
+// 	})
+// }
+
+// function login(data: any) {
+// 	return http.request<LoginInterface>({
+// 		url: 'login',
+// 		method: 'POST',
+// 		data,
+// 	})
+// }
+class userApi {
+	info() {
+		return http.request<User>({
+			url: 'user/info',
+		})
+	}
+
+	login(data: any) {
+		return http.request<LoginInterface>({
+			url: 'login',
+			method: 'POST',
+			data,
+		})
+	}
 }
 
 export default new userApi()

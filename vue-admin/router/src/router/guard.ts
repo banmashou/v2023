@@ -1,3 +1,4 @@
+import user from "@/store/user";
 import { store } from "@/utils";
 import { RouteLocationNormalized, Router } from "vue-router";
 
@@ -8,13 +9,18 @@ class Guard {
 		this.router.beforeEach(this.beforeEach.bind(this))
 	}
 
-	private token(): string | null {
-		return store.get('token')?.token
-	}
-
-	private beforeEach(to: RouteLocationNormalized, from: RouteLocationNormalized) {
+	private async beforeEach(to: RouteLocationNormalized, from: RouteLocationNormalized) {
 		if (this.isLogin(to) === false) return { name: 'login' }
 		if (this.isGuest(to) === false) return from
+		await this.getUserInfo()
+	}
+
+	private getUserInfo() {
+		if (this.token()) return user().getUserInfo()
+	}
+
+	private token(): string | null {
+		return store.get('token')?.token
 	}
 
 	// 游客用户访问
