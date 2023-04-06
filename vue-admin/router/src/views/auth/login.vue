@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { store } from '@/utils'
+import utils from '@/utils'
 import userApi from '../../apis/userApi'
 // import { reactive } from 'vue'
 
@@ -8,7 +8,6 @@ import userApi from '../../apis/userApi'
 //   password: '',
 // })
 import v from '@/plugins/validate'
-import router from '@/router'
 const { Form, Field, ErrorMessage } = v
 // const schema = v.yup.object({
 //   account: v.yup.string().required().email().label('账号'),
@@ -23,11 +22,7 @@ const schema = {
 }
 
 const onSubmit = async (values: any) => {
-  const {
-    result: { token },
-  } = await userApi.login(values)
-  store.set('token', { expire: 100000, token })
-  router.push({ name: 'home' })
+  utils.user.login(values)
 }
 </script>
 <script lang="ts">
@@ -41,14 +36,12 @@ export default { route: { name: 'login', meta: { guest: true } } }
         <div>
           <h2 class="text-center text-gray-700 text-lg mt-3">会员登录</h2>
           <div class="mt-8">
-            <Field name="account" value="admin@banmashou.com" label="账号" placeholder="请输入邮箱或手机号" class="bm-input" />
+            <Field name="account" autocomplete value="admin@banmashou.com" label="账号" placeholder="请输入邮箱或手机号" class="bm-input" />
             <ErrorMessage name="account" as="div" class="bm-error" />
-
-            <Field name="password" value="admin888" label="密码" placeholder="请输入密码" type="password" class="bm-input mt-3" />
+            <Field name="password" autocomplete value="admin888" label="密码" placeholder="请输入密码" type="password" class="bm-input mt-3" />
             <ErrorMessage name="password" as="div" class="bm-error" />
           </div>
           <bmButton class="w-full" />
-
           <div class="flex justify-center mt-3">
             <i class="fa-brands fa-weixin bg-green-600 text-white rounded-full p-1 cursor-pointer"></i>
           </div>

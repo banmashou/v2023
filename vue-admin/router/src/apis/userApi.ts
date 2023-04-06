@@ -8,6 +8,11 @@ export interface LoginInterface {
 	token: string
 }
 
+export interface ILoginData {
+	account: string,
+	password: string
+}
+
 // function info() {
 // 	return http.request<User>({
 // 		url: 'user/info',
@@ -28,7 +33,7 @@ class userApi {
 		})
 	}
 
-	login(data: any) {
+	login(data: ILoginData) {
 		return http.request<LoginInterface>({
 			url: 'login',
 			method: 'POST',

@@ -1,11 +1,11 @@
-import { env } from "@/utils";
+import util from "@/utils";
 import { RouteRecordRaw } from "vue-router";
 import getRoutes from "./view";
 import autoloadModuleRoutes from "./module";
 
 let routes = [] as RouteRecordRaw[]
 // 如果开启了自动加载路由，则调用getRoutes()自动路由，否则调用autoloadModuleRoutes模块路由
-if (env.VITE_ROUTER_AUTOLOAD) {
+if (util.env.VITE_ROUTER_AUTOLOAD) {
 	routes = getRoutes()
 } else {
 	routes = autoloadModuleRoutes()
