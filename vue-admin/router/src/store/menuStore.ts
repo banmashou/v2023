@@ -4,39 +4,38 @@
  * @author 斑马兽
  */
 import { defineStore } from 'pinia'
-import { useRouter } from 'vue-router'
+import { IMenu } from '#/menu'
+import { RouteLocationNormalized } from 'vue-router'
+import utils from '@/utils'
+import { CacheEnum } from '@/enum/cacheEnum'
 
-export default defineStore('router', {
+export default defineStore('menu', {
 	state: () => {
 		return {
-			menus: null
+			menus: [] as IMenu[],
+			historyMenu: [] as IMenu[]
 		}
 	},
 	actions: {
-		// 获取菜单
-		getMenuByRoute() {
-			const router = useRouter()
-			const routes = router.getRoutes()
-				.filter(route => route.children.length && route.meta.show)
-				.map(route => {
-					route.children = route.children.filter(route => route.meta?.show)
-					return route
-				})
-				.filter(route => route.children.length)
-			return routes
-		}
+		init() {
+			// this.getMenuByRoute()
+			this.historyMenu = utils.store.get(CacheEnum.HISTORY_MENU) ?? []
+		},
+		// 添加历史菜单
+		addHistoryMenu(route: RouteLocationNormalized) {
+			if (!route.meta?.menu) return
+			const menu: IMenu = { ...route.meta?.menu, route: route.name as string }
+			const isHas = this.historyMenu.some(menu => menu.route === route.name)
+			if (!isHas) this.historyMenu.unshift(menu)
+			if (this.historyMenu.length > 10) {
+				this.historyMenu.pop()
+			}
+			utils.store.set(CacheEnum.HISTORY_MENU, this.historyMenu)
+		},
+		// 移除历史菜单
+		removeHistoryMenu(menu: IMenu) {
+			const index = this.historyMenu.indexOf(menu)
+			this.historyMenu.splice(index, 1)
+		},
 	}
 })
-
-// 获取菜单可用路由
-function getRoutes() {
-	const router = useRouter()
-	const routes = router.getRoutes()
-		.filter(route => route.children.length && route.meta.show)
-		.map(route => {
-			route.children = route.children.filter(route => route.meta?.show)
-			return route
-		})
-		.filter(route => route.children.length)
-	return routes
-}

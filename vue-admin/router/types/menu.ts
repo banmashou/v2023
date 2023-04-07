@@ -4,11 +4,12 @@
  * @interface Menu
  */
 interface Menu {
-	title: string
+	title?: string
 	icon?: string
 	isClcik?: boolean
+	route?: string
 }
 
 export interface IMenu extends Menu {
-	children: Menu[]
+	children?: Menu[]
 }

@@ -2,24 +2,47 @@
 import MenuCompoent from './admin/menu.vue'
 import Navbar from './admin/navbar.vue'
 import HistoryLink from './admin/historyLink.vue'
+import menuStore from '@/store/menuStore'
+import { useRoute } from 'vue-router'
+import { onBeforeRouteUpdate } from 'vue-router'
+const route = useRoute()
+const menu = menuStore()
+menu.init()
+
+onBeforeRouteUpdate(() => {
+  // 记录历史路由
+  menu.addHistoryMenu(route)
+})
 </script>
 
 <template>
-  <!-- h-min-screen -->
-  <div class="admin min-h-screen w-screen flex">
-    <MenuCompoent class="hidden md:block" />
-    <div class="content flex-1 bg-gray-100">
-      <Navbar />
-      <HistoryLink />
-      <div class="m-5">
-        <router-view />
+  <div class="admin h-screen w-screen grid md:grid-cols-[auto_1fr]">
+    <MenuCompoent />
+    <div class="content bg-gray-100 grid grid-rows-[auto_1fr]">
+      <div class>
+        <Navbar />
+        <HistoryLink />
+      </div>
+      <div class="m-3 relative overflow-y-auto">
+        <router-view #default="{ Component, route }">
+          <Transition
+            appear
+            class="animate__animated"
+            :enter-active-class="route.meta.enterClass ?? 'animate__fadeInRight'"
+            :leave-active-class="route.meta.leaveClass ?? 'animate__fadeOutLeft'">
+            <component :is="Component" class="absolute w-full" />
+          </Transition>
+        </router-view>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  route: { meta: { auth: true } },
+<style lang="scss" scoped>
+.animate__fadeInRight {
+  animation-duration: 0.5s;
 }
-</script>
+.animate__fadeOutLeft {
+  animation-duration: 0.3s;
+}
+</style>

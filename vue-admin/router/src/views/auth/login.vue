@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import utils from '@/utils'
-import userApi from '../../apis/userApi'
 // import { reactive } from 'vue'
 
 // const form = reactive<{ account: string; password: string | number }>({

@@ -1,58 +1,46 @@
 <script setup lang="ts">
-import { router } from '@/store/router'
-import { useRouter } from 'vue-router'
-import { RouteRecordNormalized } from 'vue-router'
-import { RouteRecordRaw } from 'vue-router'
+import menuService from '@/composables/menu'
+import { watch } from 'vue'
+import { useRoute } from 'vue-router'
 
-const routeService = useRouter()
-const routerStore = router()
+const route = useRoute()
 
-const reset = () => {
-  routerStore.routes.forEach((route) => {
-    route.meta.isClick = false
-    route.children?.forEach((route) => {
-      if (route.meta) {
-        route.meta.isClick = false
-      }
-    })
-  })
-}
-
-const handle = (pRoute: RouteRecordNormalized, cRoute?: RouteRecordRaw) => {
-  reset()
-  pRoute.meta.isClick = true
-  if (cRoute && cRoute.meta) {
-    cRoute.meta.isClick = true
-    routeService.push(cRoute)
-  }
-}
+watch(route, () => menuService.setCurrentMenu(route), { immediate: true })
 </script>
 
 <template>
-  <div class="menu w-[200px] bg-gray-800 p-4">
-    <div class="logo text-gray-300 flex items-center">
+  <div class="menu w-[200px] bg-gray-800" :class="{ close: menuService.close.value }">
+    <div class="logo">
       <i class="fas fa-robot text-fuchsia-300 mr-2 text-[25px]"></i>
       <span class="text-md">斑马兽</span>
     </div>
     <!-- 菜单 -->
-    <div class="left-container">
-      <dl v-for="(route, index) of routerStore.routes" :key="index">
-        <dt @click="handle(route)">
+    <div class="container">
+      <dl>
+        <dt @click="$router.push('/admin')" :class="{ 'bg-violet-600 text-white p-3': $route.name === 'admin.home' }">
           <section>
-            <i :class="route.meta.icon"></i>
-            <span class="text-md">{{ route.meta.title }}</span>
+            <i class="fas fa-home"></i>
+            <span class="text-md">首页</span>
+          </section>
+        </dt>
+      </dl>
+      <dl v-for="(pmenu, index) of menuService.menus.value" :key="index">
+        <dt @click="pmenu.isClcik = true">
+          <section>
+            <i :class="pmenu.icon"></i>
+            <span class="text-md">{{ pmenu.title }}</span>
           </section>
           <section>
-            <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': route.meta.isClick }"></i>
+            <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': pmenu.isClcik }"></i>
           </section>
         </dt>
         <dd
-          v-show="route.meta.isClick"
-          :class="{ active: childRoute.meta?.isClick }"
-          v-for="(childRoute, key) of route.children"
+          v-show="pmenu.isClcik"
+          :class="{ active: cmenu.isClcik }"
+          v-for="(cmenu, key) of pmenu.children"
           :key="key"
-          @click="handle(route, childRoute)">
-          {{ childRoute.meta?.title }}
+          @click="$router.push({ name: cmenu.route })">
+          {{ cmenu?.title }}
         </dd>
       </dl>
     </div>
@@ -60,12 +48,15 @@ const handle = (pRoute: RouteRecordNormalized, cRoute?: RouteRecordRaw) => {
 </template>
 
 <style lang="scss" scoped>
-.admin {
-  .left-container {
+.menu {
+  .logo {
+    @apply text-gray-300 flex items-center p-4;
+  }
+  .container {
     dl {
       @apply text-gray-300 text-sm;
       dt {
-        @apply text-sm mt-6 flex justify-between items-center cursor-pointer;
+        @apply text-sm p-4 flex justify-between items-center cursor-pointer;
         section {
           @apply flex items-center;
           i {
@@ -80,6 +71,43 @@ const handle = (pRoute: RouteRecordNormalized, cRoute?: RouteRecordRaw) => {
           @apply bg-violet-700;
         }
       }
+    }
+  }
+}
+@media screen and (min-width: 768px) {
+  .menu {
+    &.close {
+      width: auto;
+      .logo {
+        span {
+          @apply hidden;
+        }
+      }
+      .container {
+        dl {
+          dt {
+            @apply flex justify-center;
+            section {
+              // i {
+              //   @apply mr-0;
+              // }
+              span {
+                @apply hidden;
+              }
+              &:nth-of-type(2) {
+                @apply hidden;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+@media screen and (max-width: 768px) {
+  .menu {
+    @apply h-screen w-[200px] absolute left-0 top-0 z-50;
+    .close {
     }
   }
 }
