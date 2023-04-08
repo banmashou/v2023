@@ -9,93 +9,101 @@ watch(route, () => menuService.setCurrentMenu(route), { immediate: true })
 </script>
 
 <template>
-  <div class="menu w-[200px] bg-gray-800" :class="{ close: menuService.close.value }">
-    <div class="logo">
-      <i class="fas fa-robot text-fuchsia-300 mr-2 text-[25px]"></i>
-      <span class="text-md">斑马兽</span>
+  <div class="admin-menu" :class="{ close: menuService.close.value }">
+    <div class="menu w-[200px] bg-gray-800">
+      <!-- logo -->
+      <div class="logo">
+        <i class="fas fa-robot text-fuchsia-300 mr-2 text-[25px]"></i>
+        <span class="text-md">斑马兽</span>
+      </div>
+      <!-- 菜单 -->
+      <div class="container">
+        <dl v-for="(pmenu, index) of menuService.menus.value" :key="index">
+          <dt @click="menuService.toggleParentMenu(pmenu)">
+            <section>
+              <i :class="pmenu.icon"></i>
+              <span class="text-md">{{ pmenu.title }}</span>
+            </section>
+            <section>
+              <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': pmenu.isClcik }"></i>
+            </section>
+          </dt>
+          <dd :class="!pmenu.isClcik || menuService.close.value ? 'hidden' : 'block'">
+            <div :class="{ active: cmenu.isClcik }" v-for="(cmenu, key) of pmenu.children" :key="key" @click="$router.push({ name: cmenu.route })">
+              {{ cmenu?.title }}
+            </div>
+          </dd>
+        </dl>
+      </div>
+      <!-- 遮罩 -->
     </div>
-    <!-- 菜单 -->
-    <div class="container">
-      <dl>
-        <dt @click="$router.push('/admin')" :class="{ 'bg-violet-600 text-white p-3': $route.name === 'admin.home' }">
-          <section>
-            <i class="fas fa-home"></i>
-            <span class="text-md">首页</span>
-          </section>
-        </dt>
-      </dl>
-      <dl v-for="(pmenu, index) of menuService.menus.value" :key="index">
-        <dt @click="pmenu.isClcik = true">
-          <section>
-            <i :class="pmenu.icon"></i>
-            <span class="text-md">{{ pmenu.title }}</span>
-          </section>
-          <section>
-            <i class="fas fa-angle-down duration-300" :class="{ 'rotate-180': pmenu.isClcik }"></i>
-          </section>
-        </dt>
-        <dd
-          v-show="pmenu.isClcik"
-          :class="{ active: cmenu.isClcik }"
-          v-for="(cmenu, key) of pmenu.children"
-          :key="key"
-          @click="$router.push({ name: cmenu.route })">
-          {{ cmenu?.title }}
-        </dd>
-      </dl>
-    </div>
+    <div class="bg block md:hiiden" @click="menuService.toggleState"></div>
   </div>
 </template>
 
 <style lang="scss" scoped>
-.menu {
-  .logo {
-    @apply text-gray-300 flex items-center p-4;
-  }
-  .container {
-    dl {
-      @apply text-gray-300 text-sm;
-      dt {
-        @apply text-sm p-4 flex justify-between items-center cursor-pointer;
-        section {
-          @apply flex items-center;
-          i {
-            @apply mr-2 text-sm;
+.admin-menu {
+  @apply z-20;
+  .menu {
+    @apply h-full;
+    .logo {
+      @apply text-gray-300 flex items-center p-4;
+    }
+    .container {
+      dl {
+        @apply text-gray-300 text-sm relative p-4;
+        dt {
+          @apply text-sm flex justify-between items-center cursor-pointer;
+          section {
+            @apply flex items-center;
+            i {
+              @apply mr-2 text-sm;
+            }
           }
         }
-      }
-      dd {
-        @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer duration-300 hover:bg-violet-500 bg-gray-700;
-
-        &.active {
-          @apply bg-violet-700;
+        dd {
+          div {
+            @apply py-3 pl-4 my-2 text-white rounded-md cursor-pointer duration-300 hover:bg-violet-500 bg-gray-700;
+            &.active {
+              @apply bg-violet-700;
+            }
+          }
         }
       }
     }
   }
 }
+
 @media screen and (min-width: 768px) {
-  .menu {
+  .admin-menu {
     &.close {
-      width: auto;
-      .logo {
-        span {
-          @apply hidden;
+      .menu {
+        width: auto;
+        .logo {
+          @apply justify-center;
+          i {
+            @apply mr-0;
+          }
+          span {
+            @apply hidden;
+          }
         }
-      }
-      .container {
-        dl {
-          dt {
-            @apply flex justify-center;
-            section {
-              // i {
-              //   @apply mr-0;
-              // }
-              span {
-                @apply hidden;
+        .container {
+          dl {
+            dt {
+              @apply flex justify-center;
+              section {
+                span {
+                  @apply hidden;
+                }
+                &:nth-of-type(2) {
+                  @apply hidden;
+                }
               }
-              &:nth-of-type(2) {
-                @apply hidden;
+            }
+            &:hover {
+              dd {
+                @apply block absolute left-full top-[0] w-[200px] bg-gray-700;
               }
             }
           }
@@ -105,9 +113,18 @@ watch(route, () => menuService.setCurrentMenu(route), { immediate: true })
   }
 }
 @media screen and (max-width: 768px) {
-  .menu {
+  .admin-menu {
     @apply h-screen w-[200px] absolute left-0 top-0 z-50;
-    .close {
+    .menu {
+      @apply h-full z-50 absolute;
+      .close {
+      }
+    }
+    .bg {
+      @apply bg-gray-100 z-40 opacity-75 w-screen h-screen absolute left-0 top-0;
+    }
+    &.close {
+      @apply hidden;
     }
   }
 }

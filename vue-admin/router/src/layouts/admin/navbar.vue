@@ -2,15 +2,20 @@
 import userStore from '@/store/userStore'
 import utils from '@/utils'
 import menuService from '@/composables/menu'
+import Notification from '@/composables/notification.vue'
+
 const user = userStore()
+const fullScreen = () => {
+  document.documentElement.requestFullscreen()
+}
 </script>
 
 <template>
   <div class="bg-white p-3 px-5 flex justify-between items-center">
     <div class="flex items-center">
       <div @click="menuService.toggleState()">
-        <i class="fas fa-square-caret-left mr-2 text-gray-700 cursor-pointer" v-if="menuService.close.value"></i>
-        <i class="fas fa-square-caret-right mr-2 text-gray-700 cursor-pointer" v-else></i>
+        <i class="fas fa-square-caret-right mr-2 text-gray-700 cursor-pointer" v-if="menuService.close.value"></i>
+        <i class="fas fa-square-caret-left mr-2 text-gray-700 cursor-pointer" v-else></i>
       </div>
       <el-breadcrumb separator="/">
         <el-breadcrumb-item :to="{ path: '/' }">编译器</el-breadcrumb-item>
@@ -19,6 +24,8 @@ const user = userStore()
     </div>
 
     <div class="flex justify-center items-center relative group cursor-pointer">
+      <Notification class="mr-5" />
+      <i class="fas fa-border-none mr-5" @click="fullScreen"></i>
       <img :src="user.info?.avatar" class="w-8 h-8 rounded-full object-cover" />
       <span class="ml-1 text-sm text-gray-600">{{ user.info?.name }}</span>
       <section class="group-hover:block absolute top-full bg-white shadow-sm px-4 whitespace-nowrap border rounded-md hidden">

@@ -21,21 +21,6 @@ export default defineStore('menu', {
 			// this.getMenuByRoute()
 			this.historyMenu = utils.store.get(CacheEnum.HISTORY_MENU) ?? []
 		},
-		// 添加历史菜单
-		addHistoryMenu(route: RouteLocationNormalized) {
-			if (!route.meta?.menu) return
-			const menu: IMenu = { ...route.meta?.menu, route: route.name as string }
-			const isHas = this.historyMenu.some(menu => menu.route === route.name)
-			if (!isHas) this.historyMenu.unshift(menu)
-			if (this.historyMenu.length > 10) {
-				this.historyMenu.pop()
-			}
-			utils.store.set(CacheEnum.HISTORY_MENU, this.historyMenu)
-		},
-		// 移除历史菜单
-		removeHistoryMenu(menu: IMenu) {
-			const index = this.historyMenu.indexOf(menu)
-			this.historyMenu.splice(index, 1)
-		},
+
 	}
 })
