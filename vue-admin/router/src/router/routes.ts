@@ -17,7 +17,6 @@ const routes = [
 		path: '/:any(.*)',
 		name: 'notFound',
 		component: () => import('@/views/errors/404.vue'),
-		meta: { guest: true }
 	},
 ] as RouteRecordRaw[]
 

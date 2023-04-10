@@ -5,15 +5,16 @@
 import { App } from 'vue'
 import { createRouter, createWebHistory } from 'vue-router'
 import routes from './routes'
-import aotoloadRoutes from './autoload'
+import aotoload from './autoload'
 import guard from './guard'
 
 const router = createRouter({
 	history: createWebHistory(),
-	routes: [...routes, ...aotoloadRoutes],
+	routes: [...routes],
 })
 
 export function setupRouter(app: App) {
+	aotoload(router)
 	guard(router)
 	app.use(router)
 }

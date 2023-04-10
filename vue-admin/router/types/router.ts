@@ -12,10 +12,10 @@ declare module 'vue-router' {
 		auth?: boolean,
 		// 是否是游客
 		guest?: boolean,
-		// 权限
-		permission?: string[],
 		menu?: IMenu,
 		enterClass?: string,
-		leaveClass?: string
+		leaveClass?: string,
+		// 权限
+		permission?: string[],
 	}
 }
