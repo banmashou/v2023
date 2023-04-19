@@ -11,15 +11,16 @@ export default {
 	meta: { auth: true, menu: { title: '编译器', icon: 'fas fa-baseball-ball' } },
 	children: [
 		{
+			name: 'base',
+			path: 'base',
+			component: () => import('@/views/editor/base.vue'),
+			meta: { menu: { title: '富文本编译器' } },
+		},
+		{
 			name: 'markdown',
 			path: 'markdown',
 			component: () => import('@/views/editor/markdown.vue'),
 			meta: { permission: 'editor_markdown', menu: { title: 'markdown' } },
-		},
-		{
-			name: 'base',
-			path: 'base',
-			component: () => import('@/views/editor/base.vue'),
-		},
+		}
 	]
 } as RouteRecordRaw

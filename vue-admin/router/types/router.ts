@@ -1,6 +1,6 @@
 // typings.d.ts or router.ts
-import 'vue-router'
 import { IMenu } from './menu'
+import 'vue-router'
 
 /**
  * @description 路由元信息
@@ -16,6 +16,6 @@ declare module 'vue-router' {
 		enterClass?: string,
 		leaveClass?: string,
 		// 权限
-		permission?: string[],
+		permission?: string,
 	}
 }

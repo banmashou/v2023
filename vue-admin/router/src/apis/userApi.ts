@@ -3,6 +3,7 @@ export interface User {
 	name: string
 	age: number
 	avatar: string
+	permissions: string[]
 }
 export interface LoginInterface {
 	token: string

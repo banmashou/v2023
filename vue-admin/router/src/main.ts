@@ -6,8 +6,8 @@ import '@/styles/global.scss'
 
 async function bootstrap() {
   const app = createApp(App)
-  setupRouter(app)
   setupPlugins(app)
+  setupRouter(app)
   // 先加载路由，再挂载app
   await router.isReady()
   app.mount('#app')
