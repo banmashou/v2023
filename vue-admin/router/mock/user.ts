@@ -15,7 +15,7 @@ export default [
 					name: '斑马兽',
 					age: 18,
 					avatar: '/images/bm.jpg',
-					permissions: ['editor_markdown', 'article_edit']
+					permissions: ['article_edit', 'markdown_editor', 'base_editor']
 				},
 			}
 		},

@@ -7,7 +7,7 @@ import { CacheEnum } from "@/enum/cacheEnum";
 import router from "@/router";
 import utils from "@/utils";
 import { ref } from "vue";
-import { RouteLocationNormalized, RouteLocationNormalizedLoaded } from "vue-router";
+import { RouteLocationNormalized, RouteLocationNormalizedLoaded, RouteRecordRaw } from "vue-router";
 
 class Menu {
 	public menus = ref<IMenu[]>([])
@@ -16,7 +16,17 @@ class Menu {
 	public route = ref(null as null | RouteLocationNormalized)
 	constructor() {
 		this.menus.value = this.getMenuByRoute()
-		this.history.value = utils.store.get(CacheEnum.HISTORY_MENU) ?? []
+		this.history.value = this.getHistoryMenu()
+	}
+
+	private getHistoryMenu() {
+		const routes = [] as RouteRecordRaw[]
+		router.getRoutes().map(r => routes.push(...r.children))
+
+		let menus: IMenu[] = utils.store.get(CacheEnum.HISTORY_MENU) ?? []
+		return menus.filter(m => {
+			return routes.some(r => r.name == m.route)
+		})
 	}
 
 	// 移除历史菜单
