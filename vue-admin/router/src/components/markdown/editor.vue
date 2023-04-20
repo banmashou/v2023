@@ -19,7 +19,7 @@ const emit = defineEmits(['update:modelValue'])
 nextTick(() => {
   const toastUi = new ToastEditor('#editor', `${props.placeholder}`, `${props.height}px`)
   toastUi.editor.on('change', (type: string) => {
-    const content = type == 'markdown' ? toastUi.editor.getMarkdown() : toastUi.editor.getHTML()
+    // const content = type == 'markdown' ? toastUi.editor.getMarkdown() : toastUi.editor.getHTML()
     // emit('update:modelValue', content)
     emit('update:modelValue', toastUi.editor[type == 'markdown' ? 'getMarkdown' : 'getHTML']())
   })
@@ -35,5 +35,15 @@ nextTick(() => {
 
 #editor {
   @apply bg-white;
+
+  .fullscreen {
+    position: fixed;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 999;
+    background-color: #fff;
+  }
 }
 </style>
