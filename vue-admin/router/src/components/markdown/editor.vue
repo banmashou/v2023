@@ -14,8 +14,15 @@ const props = withDefaults(defineProps<IProps>(), {
   placeholder: '',
 })
 
+const emit = defineEmits(['update:modelValue'])
+
 nextTick(() => {
-  new ToastEditor('#editor', `${props.placeholder}`, `${props.height}px`)
+  const toastUi = new ToastEditor('#editor', `${props.placeholder}`, `${props.height}px`)
+  toastUi.editor.on('change', (type: string) => {
+    const content = type == 'markdown' ? toastUi.editor.getMarkdown() : toastUi.editor.getHTML()
+    // emit('update:modelValue', content)
+    emit('update:modelValue', toastUi.editor[type == 'markdown' ? 'getMarkdown' : 'getHTML']())
+  })
 })
 </script>
 
