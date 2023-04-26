@@ -4,6 +4,7 @@ import wangEditor from './wangEditor'
 
 interface Props {
   height?: number
+  modelValue?: string
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -17,7 +18,7 @@ nextTick(() => {
 
 <template>
   <div id="editor">
-    <p>欢迎使用</p>
+    <p>{{ modelValue }}</p>
   </div>
 </template>
 

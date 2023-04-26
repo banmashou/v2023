@@ -4,5 +4,6 @@ export default class {
     this.editor = new wangEditor(el)
     this.editor.config.height = config.height
     this.editor.create()
+    this.editor.txt.html(config.modelValue)
   }
 }
