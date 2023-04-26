@@ -11,8 +11,16 @@ const props = withDefaults(defineProps<Props>(), {
   height: 300,
 })
 
+const emit = defineEmits(['update:modelValue'])
+
 nextTick(() => {
-  new wangEditor('#editor', props)
+  new wangEditor(
+    '#editor',
+    (newHtml: string) => {
+      emit('update:modelValue', newHtml)
+    },
+    props,
+  )
 })
 </script>
 
