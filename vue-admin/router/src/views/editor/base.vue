@@ -1,7 +1,11 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import Editor from "@/components/wangEditor/editor.vue";
+</script>
 
 <template>
-  <div class="">富文本编译器</div>
+  <div class="">
+		<Editor />
+	</div>
 </template>
 
 <style lang="scss"></style>
