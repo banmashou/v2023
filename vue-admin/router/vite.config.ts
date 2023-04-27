@@ -13,6 +13,11 @@ export default ({ command, mode }: ConfigEnv) => {
     resolve: {
       alias,
     },
+    server: {
+      host: env.VITE_HOST, // ip地址
+      port: env.VITE_PORT, //端口号
+      open: false,
+    },
     build: {
       rollupOptions: {
         emptyOutDir: true,

@@ -3,10 +3,14 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
-export function setupElementPlugin(plugins: Plugin[]) {
+export default function autoImport(plugins: Plugin[]) {
   plugins.push(
     AutoImport({
       resolvers: [ElementPlusResolver()],
+      //引入element plus自动api支持
+      imports: ['vue', 'vue-router'],
+      //为true时在项目根目录自动创建
+      dts: 'types/auto-imports.d.ts',
     }),
     Components({
       resolvers: [ElementPlusResolver()],
