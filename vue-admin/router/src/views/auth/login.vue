@@ -40,16 +40,16 @@ export default { route: { name: 'login', meta: { guest: true } } }
             <Field name="password" autocomplete value="admin888" label="密码" placeholder="请输入密码" type="password" class="bm-input mt-3" />
             <ErrorMessage name="password" as="div" class="bm-error" />
           </div>
-          <bmButton class="w-full" />
+          <FormBmButton class="w-full" />
           <div class="flex justify-center mt-3">
             <i class="fa-brands fa-weixin bg-green-600 text-white rounded-full p-1 cursor-pointer"></i>
           </div>
         </div>
         <div class="flex gap-2 justify-center mt-5">
-          <bmLink />
-          <bmLink />
-          <bmLink />
-          <bmLink />
+          <FormBmLink />
+          <FormBmLink />
+          <FormBmLink />
+          <FormBmLink />
         </div>
       </div>
       <div class="hidden md:block relative">

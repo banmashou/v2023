@@ -28,9 +28,7 @@ nextTick(() => {
 </script>
 
 <template>
-  <div id="editor">
-    <p>{{ modelValue }}</p>
-  </div>
+  <div id="editor"></div>
 </template>
 
 <style lang="scss"></style>
