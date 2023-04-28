@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<IProps>(), {
 const emit = defineEmits(['update:modelValue'])
 
 nextTick(() => {
-  const toastUi = new ToastEditor('#editor', `${props.placeholder}`, `${props.height}px`)
+  const toastUi = new ToastEditor('#markdownEditor', `${props.placeholder}`, `${props.height}px`)
   toastUi.editor.on('change', (type: string) => {
     // const content = type == 'markdown' ? toastUi.editor.getMarkdown() : toastUi.editor.getHTML()
     // emit('update:modelValue', content)
@@ -27,13 +27,13 @@ nextTick(() => {
 </script>
 
 <template>
-  <div id="editor"></div>
+  <div id="markdownEditor"></div>
 </template>
 
 <style lang="scss">
 @import 'https://uicdn.toast.com/editor/latest/toastui-editor.min.css';
 
-#editor {
+#markdownEditor {
   @apply bg-white;
 
   .fullscreen {
