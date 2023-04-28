@@ -9,6 +9,7 @@ export {}
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    AnimateList: typeof import('./../src/components/animateList.vue')['default']
     BmButton: typeof import('./../src/components/bm/button.vue')['default']
     BmInput: typeof import('./../src/components/bm/input.vue')['default']
     BmLink: typeof import('./../src/components/bm/link.vue')['default']

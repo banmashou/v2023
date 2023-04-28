@@ -8,6 +8,7 @@ const content = ref('abc')
 <template>
   <div>
     <Editor v-model="content" />
+    {{ content }}
   </div>
 </template>
 

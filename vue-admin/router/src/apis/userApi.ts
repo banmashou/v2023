@@ -1,17 +1,17 @@
 import { http } from '@/plugins/axios'
 export interface User {
-	name: string
-	age: number
-	avatar: string
-	permissions: string[]
+  name: string
+  age: number
+  avatar: string
+  permissions: string[]
 }
 export interface LoginInterface {
-	token: string
+  token: string
 }
 
 export interface ILoginData {
-	account: string,
-	password: string
+  account: string
+  password: string
 }
 
 // function info() {
@@ -28,19 +28,19 @@ export interface ILoginData {
 // 	})
 // }
 class userApi {
-	info() {
-		return http.request<User>({
-			url: 'user/info',
-		})
-	}
+  info() {
+    return http.request<User>({
+      url: 'user/info',
+    })
+  }
 
-	login(data: ILoginData) {
-		return http.request<LoginInterface>({
-			url: 'login',
-			method: 'POST',
-			data,
-		})
-	}
+  login(data: ILoginData) {
+    return http.request<LoginInterface>({
+      url: 'login',
+      method: 'POST',
+      data,
+    })
+  }
 }
 
 export default new userApi()
