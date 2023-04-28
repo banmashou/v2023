@@ -42,7 +42,7 @@ export default { route: { name: 'login', meta: { guest: true } } }
           </div>
           <BmButton class="w-full" />
           <div class="flex justify-center mt-3">
-            <i class="fa-brands fa-weixin bg-green-600 text-white rounded-full p-1 cursor-pointer"></i>
+            <icon-wechat theme="outline" size="14" fill="#fff" class="bg-green-600 text-white rounded-full p-1 cursor-pointer" />
           </div>
         </div>
         <div class="flex gap-2 justify-center mt-5">

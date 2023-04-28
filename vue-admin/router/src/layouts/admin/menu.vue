@@ -2,6 +2,7 @@
 import menuService from '@/composables/menu'
 import { watch } from 'vue'
 import { useRoute } from 'vue-router'
+import * as icons from '@icon-park/vue-next'
 
 const route = useRoute()
 
@@ -13,7 +14,7 @@ watch(route, () => menuService.setCurrentMenu(route), { immediate: true })
     <div class="menu w-[200px] bg-gray-800">
       <!-- logo -->
       <div class="logo">
-        <i class="fas fa-robot text-fuchsia-300 mr-2 text-[25px]"></i>
+        <icon-home theme="outline" size="18" fill="#dcdcdc" class="mr-2" />
         <span class="text-md">斑马兽</span>
       </div>
       <!-- 菜单 -->
@@ -21,7 +22,7 @@ watch(route, () => menuService.setCurrentMenu(route), { immediate: true })
         <dl v-for="(pmenu, index) of menuService.menus.value" :key="index">
           <dt @click="menuService.toggleParentMenu(pmenu)">
             <section>
-              <i :class="pmenu.icon"></i>
+              <component :is="icons[pmenu.icon!]" size="18" fill="#dcdcdc" class="mr-2" />
               <span class="text-md">{{ pmenu.title }}</span>
             </section>
             <section>
