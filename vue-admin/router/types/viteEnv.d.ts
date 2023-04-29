@@ -3,14 +3,14 @@
  * @author: 斑马兽
  * @interface ViteEnv
  */
-interface ViteEnv {
+
+interface ImportMetaEnv {
   VITE_ROUTER_AUTOLOAD: boolean
   VITE_API_URL: string
   VITE_HOST: string
   VITE_PORT: number
+  VITE_MOCK_ENABLE: boolean
 }
-
-interface ImportMetaEnv extends ViteEnv {}
 
 interface ImportMeta {
   readonly env: ImportMetaEnv

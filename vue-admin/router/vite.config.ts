@@ -1,13 +1,13 @@
 import { ConfigEnv, defineConfig, loadEnv } from 'vite'
 import alias from './vite/alias'
-import { parseEvn } from './vite/util'
+import { parseEnv } from './vite/util'
 import setupPlugins from './vite/plugins'
 import { visualizer } from 'rollup-plugin-visualizer'
 
 export default ({ command, mode }: ConfigEnv) => {
   const isBuild = command == 'build'
   const root = process.cwd()
-  const env = parseEvn(loadEnv(mode, root))
+  const env = parseEnv(loadEnv(mode, root))
   return {
     plugins: [...setupPlugins(isBuild, env), visualizer()],
     resolve: {
@@ -17,6 +17,16 @@ export default ({ command, mode }: ConfigEnv) => {
       host: env.VITE_HOST, // ip地址
       port: env.VITE_PORT, //端口号
       open: false,
+      proxy: {
+        '/api': {
+          // 将/api访问转换为target
+          target: env.VITE_MOCK_ENABLE ? '/api' : env.VITE_API_URL,
+          // 跨域请求携带cookie
+          changeOrigin: true,
+          // url 重写删除`/api`
+          rewrite: (path: string) => path.replace(/^\/api/, ''),
+        },
+      },
     },
     build: {
       rollupOptions: {

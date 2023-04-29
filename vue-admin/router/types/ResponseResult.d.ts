@@ -5,8 +5,8 @@
  * @template T
  */
 interface ResponseResult<T> {
-	code: number
-	message: string
-	type: 'success' | 'error'
-	result: T
+  code: number
+  message: string
+  status: 'success' | 'error'
+  data: T
 }
