@@ -9,17 +9,17 @@ import { CacheEnum } from '@/enum/cacheEnum'
 import store from '@/utils/store'
 
 export default defineStore('user', {
-  state: () => {
-    return {
-      info: {} as null | User,
-    }
-  },
-  actions: {
-    async getUserInfo() {
-      if (store.get(CacheEnum.TOKEN_NAME)) {
-        const res = await userApi.info()
-        this.info = res.data
-      }
-    },
-  },
+	state: () => {
+		return {
+			info: {} as null | User,
+		}
+	},
+	actions: {
+		async getUserInfo() {
+			if (store.get(CacheEnum.TOKEN_NAME)) {
+				const res = await userApi.info()
+				this.info = res.data
+			}
+		},
+	},
 })

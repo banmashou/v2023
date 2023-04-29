@@ -10,16 +10,15 @@ import guard from './guard'
 import userStore from '@/store/userStore'
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes: [...routes],
+	history: createWebHistory(),
+	routes: [...routes],
 })
 
 export async function setupRouter(app: App) {
-  const user = userStore()
-  await user.getUserInfo()
-  aotoload(router)
-  guard(router)
-  app.use(router)
+	await userStore().getUserInfo()
+	aotoload(router)
+	guard(router)
+	app.use(router)
 }
 
 export default router
