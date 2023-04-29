@@ -6,13 +6,14 @@ import { IMenu } from "#/menu";
 import { CacheEnum } from "@/enum/cacheEnum";
 import router from "@/router";
 import utils from "@/utils";
+import store from "@/utils/store";
 import { ref } from "vue";
 import { RouteLocationNormalized, RouteLocationNormalizedLoaded, RouteRecordRaw } from "vue-router";
 
 class Menu {
 	public menus = ref<IMenu[]>([])
 	public history = ref<IMenu[]>([])
-	public close = ref(false)
+	public close = ref(store.get(CacheEnum.MENU_IS_CLOSE) ?? true)
 	public route = ref(null as null | RouteLocationNormalized)
 	constructor() {
 		this.menus.value = this.getMenuByRoute()
@@ -60,6 +61,7 @@ class Menu {
 	// 关闭菜单
 	toggleState() {
 		this.close.value = !this.close.value
+		store.set(CacheEnum.MENU_IS_CLOSE, this.close.value)
 	}
 
 	// 点击菜单

@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import Editor from '@/components/wangEditor/editor.vue'
+import wangEditor from '@/components/wangEditor/editor.vue'
 import { ref } from 'vue'
 
-const content = ref('abc')
+const content = ref('<p>banmashou.com</p>')
 </script>
 
 <template>
   <div>
-    <Editor v-model="content" />
+    <wangEditor v-model="content" />
     {{ content }}
   </div>
 </template>

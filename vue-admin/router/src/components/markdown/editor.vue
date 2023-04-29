@@ -32,6 +32,7 @@ nextTick(() => {
 
 <style lang="scss">
 @import 'https://uicdn.toast.com/editor/latest/toastui-editor.min.css';
+// @import '@/assets/tui-image-editor.min.css';
 
 #markdownEditor {
   @apply bg-white;
