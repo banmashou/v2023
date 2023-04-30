@@ -5,7 +5,6 @@
  */
 import { defineStore } from 'pinia'
 import { IMenu } from '#/menu'
-import { RouteLocationNormalized } from 'vue-router'
 import utils from '@/utils'
 import { CacheEnum } from '@/enum/cacheEnum'
 

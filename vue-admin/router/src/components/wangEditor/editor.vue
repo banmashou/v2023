@@ -3,6 +3,7 @@ import '@wangeditor/editor/dist/css/style.css' // 引入 css
 
 import { onBeforeUnmount, ref, shallowRef, onMounted } from 'vue'
 import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
+import { ApiEnum } from '@/enum/ApiEnum'
 
 interface Props {
   modelValue?: string
@@ -21,7 +22,13 @@ const mode = ref('default')
 const valueHtml = ref(props.modelValue)
 
 const toolbarConfig = {}
-const editorConfig = { placeholder: '请输入内容...' }
+const editorConfig = {
+  MENU_CONF: {
+    uploadImage: {
+      server: ApiEnum.UPLOAD_IMAGE_URL,
+    },
+  },
+}
 
 // 组件销毁时，也及时销毁编辑器
 onBeforeUnmount(() => {
