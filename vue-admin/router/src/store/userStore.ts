@@ -16,10 +16,10 @@ export default defineStore('user', {
 	},
 	actions: {
 		async getUserInfo() {
-			if (store.get(CacheEnum.TOKEN_NAME)) {
-				const res = await userApi.info()
-				this.info = res.data
-			}
-		},
+			// if (store.get(CacheEnum.TOKEN_NAME)) {
+			const res = await userApi.info()
+			this.info = res.data
+		}
+		// },
 	},
 })
