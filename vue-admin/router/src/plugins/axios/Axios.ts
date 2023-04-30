@@ -4,6 +4,8 @@
  * @param {AxiosRequestConfig} config
  * @return {*}
  */
+import { CacheEnum } from '@/enum/cacheEnum'
+import store from '@/utils/store'
 import axios, { AxiosRequestConfig } from 'axios'
 
 export default class Axios {
@@ -39,6 +41,9 @@ export default class Axios {
 		this.instance.interceptors.request.use(
 			(config) => {
 				// 在发送请求之前做些什么
+				config.headers = {
+					Authorization: 'Bearer' + store.get(CacheEnum.TOKEN_NAME)
+				}
 				return config
 			},
 			(error) => {
