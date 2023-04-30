@@ -5,6 +5,8 @@
  * @return {*}
  */
 import { CacheEnum } from '@/enum/cacheEnum'
+import router from '@/router'
+import errorStore from '@/store/errorStore'
 import store from '@/utils/store'
 import axios, { AxiosRequestConfig } from 'axios'
 
@@ -63,6 +65,15 @@ export default class Axios {
 			},
 			(error) => {
 				// 超出 2xx 范围的状态码都会触发该函数。
+				switch (error.response.status) {
+					case 401:
+						store.remove(CacheEnum.TOKEN_NAME)
+						router.push({ name: 'login' })
+						break
+					case 422:
+						errorStore().errors = {}
+						break
+				}
 				// 对响应错误做点什么
 				return Promise.reject(error)
 			},
