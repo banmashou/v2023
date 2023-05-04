@@ -19,7 +19,8 @@ export async function login(values: ILoginData) {
 	store.set(CacheEnum.TOKEN_NAME, token)
 	userStore().getUserInfo()
 
-	const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
+	// const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'home'
+	const routeName = store.get(CacheEnum.REDIRECT_ROUTE_NAME) ?? 'admin.home'
 	router.push({ name: routeName })
 }
 

@@ -5,7 +5,7 @@
  * @class Guard
  */
 import { CacheEnum } from "@/enum/cacheEnum";
-import util from "@/utils";
+import utils from "@/utils";
 import { RouteLocationNormalized, Router } from "vue-router";
 
 class Guard {
@@ -23,8 +23,16 @@ class Guard {
 	}
 
 	private token(): string | null {
-		return util.store.get(CacheEnum.TOKEN_NAME)
+		return utils.store.get(CacheEnum.TOKEN_NAME)
 	}
+
+	// private isLogin(route: RouteLocationNormalized) {
+	// 	const state = Boolean(!route.meta.auth || (route.meta.auth && this.token()))
+	// 	if (state === false) {
+	// 		utils.store.set(CacheEnum.REDIRECT_ROUTE_NAME, route.name)
+	// 	}
+	// 	return state
+	// }
 }
 
 
